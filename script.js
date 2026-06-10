@@ -7,7 +7,7 @@ const credentials = {
     name: "Aditya Sharma",
     title: "Student Learning Hub",
     subtitle: "Approved lessons, semester paths, and downloadable study packs.",
-    actionLabel: "Resume learning",
+    actionLabel: "Resume Web Dev",
     sidebarMeta: "Semester 5 · Computer Science",
   },
   F1234: {
@@ -30,9 +30,38 @@ const credentials = {
   },
 };
 
+const WEB_DEV_PLAYLIST_ID = "PLbtI3_MArDOkxh7XzixN2G4NAGIVqTFon";
+
+const webDevelopmentCourse = {
+  id: "web-development",
+  title: "Full Stack Web Development",
+  instructor: "Sheryians Coding School",
+  description: "Stream the complete front-end to MERN stack journey — HTML, CSS, JavaScript, React, Node.js, and real-world projects — directly inside Edvora.",
+  playlistUrl: `https://www.youtube.com/playlist?list=${WEB_DEV_PLAYLIST_ID}`,
+  chapters: [
+    { id: "wd-1", chapter: 1, youtubeId: "4dprtEzunIk", title: "HTML Crash Course", topic: "Foundations", duration: "25:01", outcomes: ["Write semantic HTML", "Structure web pages", "Start front-end basics"] },
+    { id: "wd-2", chapter: 2, youtubeId: "K1naz9wBwKU", title: "CSS Crash Course", topic: "Foundations", duration: "41:41", outcomes: ["Style layouts with CSS", "Use selectors and the box model", "Build polished UI"] },
+    { id: "wd-3", chapter: 3, youtubeId: "J_r6hBo9lO4", title: "Responsive Web Development", topic: "Layout", duration: "3:22:05", outcomes: ["Build responsive pages", "Complete a full layout project", "Apply mobile-first design"] },
+    { id: "wd-4", chapter: 4, youtubeId: "a-wVHL0lpb0", title: "JavaScript Full Course — Part 1", topic: "JavaScript", duration: "8:04:12", outcomes: ["Master JS fundamentals", "Work with DOM and events", "Understand async concepts"] },
+    { id: "wd-5", chapter: 5, youtubeId: "1aR7tcmWo_w", title: "JavaScript Full Course — Part 2", topic: "JavaScript", duration: "7:26:21", outcomes: ["Level up JS skills", "Think like a developer", "Build interactive apps"] },
+    { id: "wd-6", chapter: 6, youtubeId: "wH6uf20dpAo", title: "Advanced JavaScript & Projects", topic: "JavaScript", duration: "4:15:37", outcomes: ["Use advanced patterns", "Ship JS projects", "Adopt a builder mindset"] },
+    { id: "wd-7", chapter: 7, youtubeId: "E6tAtRi82QY", title: "Complete React JS Course", topic: "React", duration: "3:26:26", outcomes: ["Build with React", "Manage component state", "Start MERN development"] },
+    { id: "wd-8", chapter: 8, youtubeId: "5WDNHl-x-AM", title: "React + GSAP Animation Project", topic: "React", duration: "1:39:56", outcomes: ["Animate React UIs", "Use GSAP in projects", "Create portfolio pieces"] },
+    { id: "wd-9", chapter: 9, youtubeId: "NjqjakgPL84", title: "Animated React Website + Deployment", topic: "React", duration: "4:46:04", outcomes: ["Build animated sites", "Make projects responsive", "Deploy to production"] },
+    { id: "wd-10", chapter: 10, youtubeId: "yItOSReV_f0", title: "3D React MacBook Landing Page", topic: "React", duration: "39:39", outcomes: ["Create 3D landing pages", "Combine React with WebGL-style UI", "Polish premium front-ends"] },
+    { id: "wd-11", chapter: 11, youtubeId: "Q-icS7yZz5k", title: "Backend Development Full Course", topic: "Backend", duration: "4:12:17", outcomes: ["Build APIs with Node.js", "Understand server architecture", "Connect front-end to back-end"] },
+    { id: "wd-12", chapter: 12, youtubeId: "jbvh0jn4h9k", title: "Microservices with UBER Project", topic: "Backend", duration: "2:17:19", outcomes: ["Design microservices", "Model real-world systems", "Scale backend apps"] },
+    { id: "wd-13", chapter: 13, youtubeId: "JmpDGMgRFfo", title: "Realtime Device Tracking with Socket.io", topic: "Backend", duration: "36:25", outcomes: ["Use Express and Socket.io", "Build live maps", "Handle realtime events"] },
+    { id: "wd-14", chapter: 14, youtubeId: "4qyBjxPlEZo", title: "Uber Clone with MERN Stack", topic: "Projects", duration: "11:06:45", outcomes: ["Ship a full MERN app", "Clone production workflows", "Integrate maps and auth"] },
+    { id: "wd-15", chapter: 15, youtubeId: "GVdBPJzmwQg", title: "JavaScript for Placements", topic: "JavaScript", duration: "2:38:51", outcomes: ["Prepare for interviews", "Solve practical JS tasks", "Get job-ready"] },
+    { id: "wd-16", chapter: 16, youtubeId: "CQ741Gw9Bz0", title: "Zomato MERN Project with Reels Feed", topic: "Projects", duration: "4:56:38", outcomes: ["Build a food delivery clone", "Add reels-style video feeds", "Complete a capstone project"] },
+  ],
+};
+
 const roleConfig = {
   student: [
     { label: "Overview", target: "studentOverview" },
+    { label: "Web Development", target: "studentWebDev" },
     { label: "My Courses", target: "studentCourses" },
     { label: "Resources", target: "studentResources" },
     { label: "Activity", target: "studentActivity" },
@@ -168,6 +197,7 @@ const state = {
   username: null,
   account: null,
   currentVideoId: null,
+  currentPlayerMode: "native",
   searchQuery: "",
   activeSection: null,
   store: loadStore(),
@@ -222,6 +252,17 @@ const refs = {
   videoModal: document.getElementById("videoModal"),
   closeVideoModal: document.getElementById("closeVideoModal"),
   lessonVideo: document.getElementById("lessonVideo"),
+  youtubePlayerHost: document.getElementById("youtubePlayerHost"),
+  youtubePlayerMount: document.getElementById("youtubePlayerMount"),
+  serverBanner: document.getElementById("serverBanner"),
+  nativeVideoToolbar: document.getElementById("nativeVideoToolbar"),
+  youtubeVideoToolbar: document.getElementById("youtubeVideoToolbar"),
+  ytPrevButton: document.getElementById("ytPrevButton"),
+  ytNextButton: document.getElementById("ytNextButton"),
+  markChapterComplete: document.getElementById("markChapterComplete"),
+  openPlaylistLink: document.getElementById("openPlaylistLink"),
+  chapterShell: document.getElementById("chapterShell"),
+  chapterList: document.getElementById("chapterList"),
   playPauseButton: document.getElementById("playPauseButton"),
   rewindButton: document.getElementById("rewindButton"),
   forwardButton: document.getElementById("forwardButton"),
@@ -238,14 +279,87 @@ const refs = {
   toast: document.getElementById("toast"),
 };
 
+let youtubePlayerInstance = null;
+let youtubeApiReady = null;
+
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
   applyTheme(loadTheme());
   populatePublishSubjects();
   updateLandingMetrics();
+  checkEmbedEnvironment();
+  preloadYouTubeApi();
   bindEvents();
   setLoggedOutState();
+}
+
+function getEmbedOrigin() {
+  if (window.location.protocol === "file:") return null;
+  if (!window.location.origin || window.location.origin === "null") return null;
+  return window.location.origin;
+}
+
+function isFileProtocol() {
+  return window.location.protocol === "file:";
+}
+
+function checkEmbedEnvironment() {
+  if (isFileProtocol()) refs.serverBanner?.classList.remove("hidden");
+}
+
+function preloadYouTubeApi() {
+  if (isFileProtocol()) return;
+  ensureYouTubeApi().catch(() => {});
+}
+
+function ensureYouTubeApi() {
+  if (window.YT?.Player) return Promise.resolve();
+  if (youtubeApiReady) return youtubeApiReady;
+  youtubeApiReady = new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error("YouTube API timeout")), 12000);
+    const previousReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      clearTimeout(timeout);
+      if (previousReady) previousReady();
+      resolve();
+    };
+    if (!document.getElementById("youtube-iframe-api")) {
+      const script = document.createElement("script");
+      script.id = "youtube-iframe-api";
+      script.src = "https://www.youtube.com/iframe_api";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  });
+  return youtubeApiReady;
+}
+
+function destroyYoutubePlayer() {
+  if (youtubePlayerInstance?.destroy) {
+    youtubePlayerInstance.destroy();
+    youtubePlayerInstance = null;
+  }
+  if (refs.youtubePlayerMount) refs.youtubePlayerMount.innerHTML = "";
+}
+
+function buildYoutubeWatchUrl(youtubeId) {
+  return `https://www.youtube.com/watch?v=${youtubeId}&list=${WEB_DEV_PLAYLIST_ID}`;
+}
+
+function renderYoutubeFallback(youtubeId, message) {
+  const watchUrl = buildYoutubeWatchUrl(youtubeId);
+  refs.youtubePlayerMount.innerHTML = `
+    <div class="youtube-fallback">
+      <p>${escapeHtml(message)}</p>
+      <div class="inline-actions" style="justify-content:center">
+        <button class="primary-button" type="button" data-fallback-watch="${youtubeId}">Watch on YouTube</button>
+      </div>
+      ${isFileProtocol() ? `<small>Run <code>npx serve .</code> and open <code>http://localhost:3000</code> to stream inside Edvora.</small>` : ""}
+    </div>`;
+  refs.youtubePlayerMount.querySelector("[data-fallback-watch]")?.addEventListener("click", () => {
+    window.open(watchUrl, "_blank", "noopener,noreferrer");
+  });
 }
 
 function loadStore() {
@@ -298,9 +412,19 @@ function bindEvents() {
   refs.roleViewport.addEventListener("click", handleViewportClick);
 
   refs.relatedVideos.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-open-video]");
-    if (button) openVideo(button.dataset.openVideo);
+    const button = event.target.closest("button[data-open-video], button[data-open-chapter]");
+    if (button?.dataset.openVideo) openVideo(button.dataset.openVideo);
+    else if (button?.dataset.openChapter) openCourseChapter(button.dataset.openChapter);
   });
+
+  refs.chapterList.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-open-chapter]");
+    if (button) openCourseChapter(button.dataset.openChapter);
+  });
+
+  refs.ytPrevButton.addEventListener("click", () => stepCourseChapter(-1));
+  refs.ytNextButton.addEventListener("click", () => stepCourseChapter(1));
+  refs.markChapterComplete.addEventListener("click", () => markCurrentChapterComplete());
 
   refs.closeInfoModal.addEventListener("click", closeInfoModal);
   refs.infoModal.addEventListener("click", (event) => { if (event.target === refs.infoModal) closeInfoModal(); });
@@ -332,11 +456,13 @@ function bindEvents() {
 
 function handleViewportClick(event) {
   const button = event.target.closest(
-    "button[data-open-video], button[data-open-content], button[data-download-content], button[data-roadmap-view], button[data-approve], button[data-reject], button[data-toggle-lock], button[data-open-publish], button[data-view-student], button[data-target-section]"
+    "button[data-open-video], button[data-open-chapter], button[data-open-content], button[data-download-content], button[data-roadmap-view], button[data-approve], button[data-reject], button[data-toggle-lock], button[data-open-publish], button[data-view-student], button[data-target-section], button[data-open-course]"
   );
   if (!button) return;
 
   if (button.dataset.targetSection) navigateToSection(button.dataset.targetSection);
+  else if (button.dataset.openCourse) openWebDevCourse(button.dataset.openCourse);
+  else if (button.dataset.openChapter) openCourseChapter(button.dataset.openChapter);
   else if (button.dataset.openVideo) openVideo(button.dataset.openVideo);
   else if (button.dataset.openContent) openContentItem(button.dataset.openContent);
   else if (button.dataset.downloadContent) downloadContentItem(button.dataset.downloadContent);
@@ -418,9 +544,9 @@ function navigateToSection(sectionId) {
 
 function handleRoleAction() {
   if (state.role === "student") {
-    const next = getApprovedLectures()[0];
-    if (next?.videoId) openVideo(next.videoId);
-    else navigateToSection("studentCourses");
+    const nextChapter = getNextWebDevChapter();
+    if (nextChapter) openCourseChapter(nextChapter.id);
+    else openCourseChapter(webDevelopmentCourse.chapters[0].id);
   } else if (state.role === "faculty") {
     openPublishModal("notes");
   } else if (state.role === "admin") {
@@ -477,6 +603,25 @@ function getFacultyContent(authorId) {
   return state.store.content.filter((item) => item.authorId === authorId);
 }
 
+function getWebDevCompletions(username = state.username) {
+  return (state.store.completions[username] || []).filter((id) => id.startsWith("wd-"));
+}
+
+function getWebDevProgress(username = state.username) {
+  const done = getWebDevCompletions(username).length;
+  const total = webDevelopmentCourse.chapters.length;
+  return { done, total, percent: Math.round((done / total) * 100) };
+}
+
+function getNextWebDevChapter(username = state.username) {
+  const completed = new Set(getWebDevCompletions(username));
+  return webDevelopmentCourse.chapters.find((chapter) => !completed.has(chapter.id)) || null;
+}
+
+function getCourseChapter(chapterId) {
+  return webDevelopmentCourse.chapters.find((chapter) => chapter.id === chapterId);
+}
+
 function formatDate(ts) {
   return new Date(ts).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 }
@@ -487,37 +632,43 @@ function renderStudentDashboard() {
   const notes = approved.filter((item) => item.type === "notes");
   const progress = state.store.users.find((u) => u.id === state.username)?.progress || 0;
   const completed = state.store.completions[state.username]?.length || 0;
+  const webDev = getWebDevProgress();
+  const nextChapter = getNextWebDevChapter();
 
   return `
-    <section class="role-hero" id="studentOverview" data-searchable="student overview progress learning streak">
+    <section class="role-hero" id="studentOverview" data-searchable="student overview progress learning streak web development streaming">
       <div class="role-hero-main">
         <span class="eyebrow">Student learning hub</span>
         <h3>Welcome back, ${escapeHtml(state.account.name.split(" ")[0])}.</h3>
-        <p>Every lesson and note here is faculty-published and admin-approved. Your progress syncs across the platform.</p>
+        <p>Stream the Full Stack Web Development course chapter-by-chapter, then explore approved semester lectures and study packs.</p>
         <div class="inline-actions">
-          <button class="primary-button" type="button" data-open-video="${lectures[0]?.videoId || "dbms"}">Continue lesson</button>
-          <button class="secondary-button" type="button" data-roadmap-view="Web Development">View roadmap</button>
+          <button class="primary-button" type="button" data-open-chapter="${nextChapter?.id || "wd-1"}">Continue Web Dev course</button>
+          <button class="secondary-button" type="button" data-target-section="studentWebDev">Browse chapters</button>
         </div>
       </div>
       <div class="role-hero-side stat-grid">
+        <article class="stat-card" data-searchable="web development course progress ${webDev.percent}">
+          <span class="label">Web Dev course</span>
+          <div class="value">${webDev.percent}%</div>
+          <div class="progress-bar"><span style="width:${webDev.percent}%"></span></div>
+        </article>
+        <article class="stat-card" data-searchable="chapters completed ${webDev.done}">
+          <span class="label">Chapters done</span>
+          <div class="value">${webDev.done}/${webDev.total}</div>
+        </article>
         <article class="stat-card" data-searchable="semester progress ${progress}">
           <span class="label">Semester progress</span>
           <div class="value">${progress}%</div>
-          <div class="progress-bar"><span style="width:${progress}%"></span></div>
-        </article>
-        <article class="stat-card" data-searchable="lessons completed ${completed}">
-          <span class="label">Lessons completed</span>
-          <div class="value">${completed}</div>
         </article>
         <article class="stat-card" data-searchable="approved resources ${approved.length}">
-          <span class="label">Available resources</span>
+          <span class="label">Other resources</span>
           <div class="value">${approved.length}</div>
         </article>
-        <article class="stat-card" data-searchable="study streak 4 days">
-          <span class="label">Study streak</span>
-          <div class="value">4d</div>
-        </article>
       </div>
+    </section>
+
+    <section id="studentWebDev" data-searchable="web development course full stack html css javascript react node mern streaming chapters">
+      ${renderWebDevCourseSection()}
     </section>
 
     <section id="studentCourses" data-searchable="student courses semesters subjects lectures">
@@ -582,6 +733,73 @@ function renderStudentDashboard() {
     </section>`;
 }
 
+function renderWebDevCourseSection() {
+  const webDev = getWebDevProgress();
+  const completed = new Set(getWebDevCompletions());
+  const nextChapter = getNextWebDevChapter();
+  const topics = [...new Set(webDevelopmentCourse.chapters.map((chapter) => chapter.topic))];
+
+  return `
+    <div class="section-header compact">
+      <div>
+        <span class="eyebrow">Featured streaming course</span>
+        <h3>${escapeHtml(webDevelopmentCourse.title)}</h3>
+      </div>
+      <button class="primary-button" type="button" data-open-chapter="${nextChapter?.id || "wd-1"}">
+        ${nextChapter ? `Resume chapter ${nextChapter.chapter}` : "Replay course"}
+      </button>
+    </div>
+
+    <article class="course-hero-card" data-searchable="web development playlist youtube streaming">
+      <div>
+        <p class="muted">${escapeHtml(webDevelopmentCourse.description)}</p>
+        <div class="course-meta">
+          <span class="tag-pill">${webDevelopmentCourse.chapters.length} chapters</span>
+          <span class="tag-pill">${escapeHtml(webDevelopmentCourse.instructor)}</span>
+          <span class="tag-pill">YouTube playlist</span>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="course-progress-label">
+            <span>Course completion</span>
+            <strong>${webDev.done} of ${webDev.total} chapters</strong>
+          </div>
+          <div class="progress-bar"><span style="width:${webDev.percent}%"></span></div>
+        </div>
+        <div class="inline-actions" style="margin-top:1rem">
+          <button class="primary-button" type="button" data-open-course="start">Start streaming</button>
+          <button class="secondary-button" type="button" data-open-chapter="wd-1">Chapter 1 · HTML</button>
+        </div>
+      </div>
+      <div class="stat-grid">
+        ${topics.map((topic) => {
+          const count = webDevelopmentCourse.chapters.filter((chapter) => chapter.topic === topic).length;
+          return `<article class="stat-card"><span class="label">${escapeHtml(topic)}</span><div class="value">${count}</div></article>`;
+        }).join("")}
+      </div>
+    </article>
+
+    <div class="split-grid" style="margin-top:1rem">
+      ${topics.map((topic) => `
+        <article class="table-card" data-searchable="${topic} chapters web development">
+          <h3>${escapeHtml(topic)}</h3>
+          <div class="resource-list" style="margin-top:0.75rem">
+            ${webDevelopmentCourse.chapters
+              .filter((chapter) => chapter.topic === topic)
+              .map((chapter) => `
+                <div class="list-row ${completed.has(chapter.id) ? "completed" : ""}" data-searchable="${chapter.title} ${chapter.topic}">
+                  <div>
+                    <strong>Ch. ${chapter.chapter} · ${escapeHtml(chapter.title)}</strong>
+                    <small>${escapeHtml(chapter.duration)}${completed.has(chapter.id) ? " · Completed" : ""}</small>
+                  </div>
+                  <button class="${completed.has(chapter.id) ? "secondary-button" : "primary-button"}" type="button" data-open-chapter="${chapter.id}">
+                    ${completed.has(chapter.id) ? "Replay" : "Watch"}
+                  </button>
+                </div>`).join("")}
+          </div>
+        </article>`).join("")}
+    </div>`;
+}
+
 function renderFacultyDashboard() {
   const myContent = getFacultyContent(state.username);
   const pending = myContent.filter((c) => c.status === "pending");
@@ -640,16 +858,19 @@ function renderFacultyDashboard() {
         <div><span class="eyebrow">Engagement</span><h3>Student progress</h3></div>
       </div>
       <div class="feature-grid">
-        ${students.map((student) => `
-          <article class="content-card" data-searchable="${student.name} progress ${student.progress}">
+        ${students.map((student) => {
+          const webDev = getWebDevProgress(student.id);
+          return `
+          <article class="content-card" data-searchable="${student.name} progress ${student.progress} web development">
             <h3>${escapeHtml(student.name)}</h3>
             <p class="muted">ID: ${escapeHtml(student.id)}</p>
             <div class="progress-bar"><span style="width:${student.progress}%"></span></div>
-            <p style="margin-top:0.5rem">${student.progress}% complete · ${state.store.completions[student.id]?.length || 0} lessons</p>
+            <p style="margin-top:0.5rem">${student.progress}% overall · Web Dev ${webDev.done}/${webDev.total} chapters</p>
             <div class="inline-actions" style="margin-top:0.75rem">
               <button class="secondary-button" type="button" data-view-student="${student.id}">View profile</button>
             </div>
-          </article>`).join("")}
+          </article>`;
+        }).join("")}
       </div>
     </section>
 
@@ -760,8 +981,8 @@ function renderActivityFeed(filterRole) {
 function updateSidebarStat() {
   if (!state.account) return;
   if (state.role === "student") {
-    const approved = getApprovedContent().length;
-    refs.sidebarStat.textContent = `${approved} approved resources available to you.`;
+    const webDev = getWebDevProgress();
+    refs.sidebarStat.textContent = `Web Dev course: ${webDev.done}/${webDev.total} chapters completed.`;
   } else if (state.role === "faculty") {
     const pending = getFacultyContent(state.username).filter((c) => c.status === "pending").length;
     refs.sidebarStat.textContent = `${pending} submission${pending === 1 ? "" : "s"} awaiting admin review.`;
@@ -894,34 +1115,192 @@ function viewStudentProfile(userId) {
   const user = state.store.users.find((u) => u.id === userId);
   if (!user) return;
   const lessons = state.store.completions[userId]?.length || 0;
+  const webDev = getWebDevProgress(userId);
   openInfoModal({
     kicker: "Student profile",
     title: user.name,
-    body: `Student ID: ${user.id}\nProgress: ${user.progress}%\nCompleted lessons: ${lessons}\nStatus: ${user.status}`,
-    points: ["Engagement tracked", "Progress synced", "Faculty view"],
+    body: `Student ID: ${user.id}\nProgress: ${user.progress}%\nWeb Dev chapters: ${webDev.done}/${webDev.total}\nTotal completions: ${lessons}\nStatus: ${user.status}`,
+    points: ["Web Dev streaming", "Engagement tracked", "Faculty view"],
   });
+}
+
+function openWebDevCourse(mode) {
+  const chapter = mode === "start" ? (getNextWebDevChapter() || webDevelopmentCourse.chapters[0]) : webDevelopmentCourse.chapters[0];
+  openCourseChapter(chapter.id);
+}
+
+function openCourseChapter(chapterId) {
+  const chapter = getCourseChapter(chapterId);
+  if (!chapter) return;
+
+  state.currentVideoId = chapterId;
+  state.currentPlayerMode = "youtube";
+
+  refs.videoKicker.textContent = `Chapter ${chapter.chapter} · ${chapter.topic} · Web Development`;
+  refs.videoModalTitle.textContent = chapter.title;
+  refs.videoDescription.textContent = `${webDevelopmentCourse.title} — ${chapter.duration}. Streamed from the official Sheryians Coding School playlist on Edvora.`;
+  refs.videoOutcomes.innerHTML = chapter.outcomes.map((outcome) => `<li>${escapeHtml(outcome)}</li>`).join("");
+
+  showYoutubePlayer(chapter.youtubeId);
+  renderChapterList(chapterId);
+  renderRelatedChapters(chapterId);
+
+  refs.chapterShell.classList.remove("hidden");
+  refs.openPlaylistLink.href = `${webDevelopmentCourse.playlistUrl}&si=dwQgwljJEa8bWmE4`;
+  refs.videoModal.classList.remove("hidden");
+  refs.videoModal.setAttribute("aria-hidden", "false");
+}
+
+async function showYoutubePlayer(youtubeId) {
+  refs.lessonVideo.classList.add("hidden");
+  refs.lessonVideo.pause();
+  refs.lessonVideo.removeAttribute("src");
+  refs.nativeVideoToolbar.classList.add("hidden");
+  refs.youtubePlayerHost.classList.remove("hidden");
+  refs.youtubeVideoToolbar.classList.remove("hidden");
+  destroyYoutubePlayer();
+
+  if (isFileProtocol() || !getEmbedOrigin()) {
+    renderYoutubeFallback(
+      youtubeId,
+      "YouTube blocked in-player streaming from a file:// page (Error 153). Use a local server or open the chapter on YouTube."
+    );
+    return;
+  }
+
+  try {
+    await ensureYouTubeApi();
+    youtubePlayerInstance = new YT.Player(refs.youtubePlayerMount, {
+      videoId: youtubeId,
+      width: "100%",
+      height: "100%",
+      playerVars: {
+        autoplay: 1,
+        rel: 0,
+        modestbranding: 1,
+        playsinline: 1,
+        list: WEB_DEV_PLAYLIST_ID,
+        origin: getEmbedOrigin(),
+      },
+      events: {
+        onError: (event) => {
+          if ([2, 5, 100, 101, 150, 153].includes(event.data)) {
+            renderYoutubeFallback(
+              youtubeId,
+              "This chapter could not be embedded (YouTube Error 153). Open it directly on YouTube instead."
+            );
+          }
+        },
+      },
+    });
+  } catch {
+    renderYoutubeFallback(
+      youtubeId,
+      "The video player failed to load. Open this chapter on YouTube instead."
+    );
+  }
+}
+
+function showNativePlayer(url) {
+  destroyYoutubePlayer();
+  refs.youtubePlayerHost.classList.add("hidden");
+  refs.youtubeVideoToolbar.classList.add("hidden");
+  refs.chapterShell.classList.add("hidden");
+  refs.lessonVideo.classList.remove("hidden");
+  refs.nativeVideoToolbar.classList.remove("hidden");
+  refs.lessonVideo.src = url;
+  refs.lessonVideo.currentTime = 0;
+  refs.lessonVideo.volume = Number(refs.volumeSlider.value);
+  refs.lessonVideo.playbackRate = Number(refs.speedSelect.value);
+  refs.lessonVideo.play().catch(() => {});
+  syncPlaybackButton();
 }
 
 function openVideo(videoId) {
   const video = videos[videoId];
   if (!video) return;
+
   state.currentVideoId = videoId;
+  state.currentPlayerMode = "native";
   refs.videoKicker.textContent = video.subtitle;
   refs.videoModalTitle.textContent = video.title;
   refs.videoDescription.textContent = video.description;
   refs.videoOutcomes.innerHTML = video.outcomes.map((o) => `<li>${o}</li>`).join("");
-  refs.lessonVideo.src = video.url;
-  refs.lessonVideo.currentTime = 0;
-  refs.lessonVideo.volume = Number(refs.volumeSlider.value);
-  refs.lessonVideo.playbackRate = Number(refs.speedSelect.value);
+  showNativePlayer(video.url);
   renderRelatedVideos(videoId);
   refs.videoModal.classList.remove("hidden");
   refs.videoModal.setAttribute("aria-hidden", "false");
-  refs.lessonVideo.play().catch(() => {});
-  syncPlaybackButton();
+}
+
+function renderChapterList(activeChapterId) {
+  const completed = new Set(getWebDevCompletions());
+  refs.chapterList.innerHTML = webDevelopmentCourse.chapters.map((chapter) => `
+    <button
+      class="chapter-item ${chapter.id === activeChapterId ? "active" : ""} ${completed.has(chapter.id) ? "completed" : ""}"
+      type="button"
+      data-open-chapter="${chapter.id}"
+    >
+      <span class="chapter-index">${chapter.chapter}</span>
+      <span>
+        <strong>${escapeHtml(chapter.title)}</strong>
+        <small>${escapeHtml(chapter.topic)} · ${escapeHtml(chapter.duration)}</small>
+      </span>
+      <span class="status-pill ${completed.has(chapter.id) ? "approved" : "pending"}">${completed.has(chapter.id) ? "Done" : "New"}</span>
+    </button>`).join("");
+}
+
+function renderRelatedChapters(activeChapterId) {
+  const index = webDevelopmentCourse.chapters.findIndex((chapter) => chapter.id === activeChapterId);
+  const related = [
+    webDevelopmentCourse.chapters[index - 1],
+    webDevelopmentCourse.chapters[index + 1],
+    webDevelopmentCourse.chapters[index + 2],
+  ].filter(Boolean);
+
+  refs.relatedVideos.innerHTML = related.map((chapter) => `
+    <button class="related-card" type="button" data-open-chapter="${chapter.id}">
+      <strong>Ch. ${chapter.chapter} · ${escapeHtml(chapter.title)}</strong>
+      <span class="muted">${escapeHtml(chapter.topic)} · ${escapeHtml(chapter.duration)}</span>
+    </button>`).join("");
+}
+
+function stepCourseChapter(direction) {
+  const index = webDevelopmentCourse.chapters.findIndex((chapter) => chapter.id === state.currentVideoId);
+  const nextIndex = index + direction;
+  if (nextIndex < 0 || nextIndex >= webDevelopmentCourse.chapters.length) {
+    showToast(direction < 0 ? "This is the first chapter." : "You reached the final chapter.");
+    return;
+  }
+  openCourseChapter(webDevelopmentCourse.chapters[nextIndex].id);
+}
+
+function markCurrentChapterComplete() {
+  if (!state.currentVideoId?.startsWith("wd-")) return;
+  if (!state.username || state.role !== "student") {
+    showToast("Chapter marked as watched.");
+    return;
+  }
+
+  if (!state.store.completions[state.username]) state.store.completions[state.username] = [];
+  if (!state.store.completions[state.username].includes(state.currentVideoId)) {
+    const chapter = getCourseChapter(state.currentVideoId);
+    state.store.completions[state.username].push(state.currentVideoId);
+    const user = state.store.users.find((u) => u.id === state.username);
+    if (user) user.progress = Math.min(100, user.progress + 3);
+    addActivity(`${state.account.name} completed Web Dev chapter ${chapter?.chapter}: ${chapter?.title}`, "student");
+    saveStore();
+    renderChapterList(state.currentVideoId);
+    showToast(`Chapter ${chapter?.chapter} marked complete.`);
+    return;
+  }
+  showToast("Chapter already completed.");
 }
 
 function handleLessonComplete() {
+  if (state.currentPlayerMode === "youtube") {
+    markCurrentChapterComplete();
+    return;
+  }
   if (!state.username || state.role !== "student") {
     showToast("Lesson completed.");
     return;
@@ -952,16 +1331,31 @@ function closeVideoModal() {
   refs.lessonVideo.pause();
   refs.lessonVideo.removeAttribute("src");
   refs.lessonVideo.load();
+  refs.lessonVideo.classList.remove("hidden");
+  destroyYoutubePlayer();
+  refs.youtubePlayerHost.classList.add("hidden");
+  refs.youtubeVideoToolbar.classList.add("hidden");
+  refs.nativeVideoToolbar.classList.remove("hidden");
+  refs.chapterShell.classList.add("hidden");
   state.currentVideoId = null;
+  state.currentPlayerMode = "native";
 }
 
 function togglePlayback() {
+  if (state.currentPlayerMode === "youtube") {
+    showToast("Use the YouTube player controls to play or pause.");
+    return;
+  }
   if (refs.lessonVideo.paused) refs.lessonVideo.play();
   else refs.lessonVideo.pause();
   syncPlaybackButton();
 }
 
 function stepVideo(direction) {
+  if (state.currentPlayerMode === "youtube") {
+    stepCourseChapter(direction);
+    return;
+  }
   const keys = Object.keys(videos);
   const currentIndex = Math.max(0, keys.indexOf(state.currentVideoId || keys[0]));
   openVideo(keys[(currentIndex + direction + keys.length) % keys.length]);

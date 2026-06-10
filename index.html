@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="description" content="Edvora is a role-based academic learning ecosystem for students, faculty, and administrators." />
     <title>Edvora | Learn Smarter. Grow Faster.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,6 +14,10 @@
   <body>
     <div class="ambient ambient-a"></div>
     <div class="ambient ambient-b"></div>
+    <div class="server-banner hidden" id="serverBanner" role="status">
+      <strong>Video streaming requires a local server.</strong>
+      <span>Do not open the HTML file directly. Run <code>npm start</code> or <code>npx serve .</code>, then visit <code>http://localhost:3000</code>.</span>
+    </div>
 
     <header class="site-header">
       <div class="topbar container">
@@ -37,10 +42,10 @@
         <article class="hero-card glass-card">
           <span class="eyebrow">Academic operating system</span>
           <h1>One platform. Three connected workspaces.</h1>
-          <p>Faculty publish lessons, admins govern quality, and students consume approved content — all synced in one professional ecosystem.</p>
+          <p>Stream the Full Stack Web Development course with 16 chapters, while faculty publish lessons, admins govern quality, and students learn in role-built dashboards.</p>
           <div class="hero-pills">
-            <span>Live content pipeline</span>
-            <span>Role-based access</span>
+            <span>16-chapter Web Dev course</span>
+            <span>YouTube streaming</span>
             <span>Approval workflows</span>
             <span>Unified activity feed</span>
           </div>
@@ -185,8 +190,11 @@
         <button class="modal-close" id="closeVideoModal" type="button" aria-label="Close video player">×</button>
         <div class="video-layout">
           <div class="video-stage">
+            <div id="youtubePlayerHost" class="youtube-frame hidden">
+              <div id="youtubePlayerMount" class="youtube-player-mount" title="Lesson video player"></div>
+            </div>
             <video id="lessonVideo" controls playsinline preload="metadata"></video>
-            <div class="video-toolbar">
+            <div class="video-toolbar" id="nativeVideoToolbar">
               <button class="mini-button" id="playPauseButton" type="button">Pause</button>
               <button class="mini-button" id="rewindButton" type="button">Previous</button>
               <button class="mini-button" id="forwardButton" type="button">Next</button>
@@ -206,6 +214,12 @@
               </label>
               <button class="mini-button" id="fullscreenButton" type="button">Fullscreen</button>
             </div>
+            <div class="video-toolbar hidden" id="youtubeVideoToolbar">
+              <button class="mini-button" id="ytPrevButton" type="button">Previous chapter</button>
+              <button class="mini-button" id="ytNextButton" type="button">Next chapter</button>
+              <button class="primary-button" id="markChapterComplete" type="button">Mark chapter complete</button>
+              <a class="secondary-button yt-playlist-link" id="openPlaylistLink" href="#" target="_blank" rel="noopener noreferrer">Open on YouTube</a>
+            </div>
           </div>
           <aside class="video-details">
             <span class="eyebrow" id="videoKicker"></span>
@@ -214,6 +228,10 @@
             <div>
               <h4>Learning outcomes</h4>
               <ul id="videoOutcomes" class="clean-list"></ul>
+            </div>
+            <div class="chapter-shell hidden" id="chapterShell">
+              <h4>Course chapters</h4>
+              <div id="chapterList" class="chapter-list"></div>
             </div>
             <div class="video-nav">
               <button class="secondary-button" id="prevVideoButton" type="button">Previous</button>
