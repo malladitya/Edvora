@@ -8,7 +8,7 @@ const credentials = {
     title: "Student Learning Hub",
     subtitle: "Approved lessons, semester paths, and downloadable study packs.",
     actionLabel: "Resume Web Dev",
-    sidebarMeta: "Semester 5 · Computer Science",
+    sidebarMeta: "Semester 3 · Computer Science",
   },
   S251283: {
     password: "251283",
