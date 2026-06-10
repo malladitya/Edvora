@@ -35,23 +35,23 @@
     <main class="container main-shell">
       <section class="landing-grid" id="landing">
         <article class="hero-card glass-card">
-          <span class="eyebrow">Premium academic ecosystem</span>
-          <h1>Your Complete Academic Learning Ecosystem</h1>
-          <p>A cleaner role-based platform for students, faculty, and administrators. Login once, then open the workspace built for your role.</p>
+          <span class="eyebrow">Academic operating system</span>
+          <h1>One platform. Three connected workspaces.</h1>
+          <p>Faculty publish lessons, admins govern quality, and students consume approved content — all synced in one professional ecosystem.</p>
           <div class="hero-pills">
-            <span>Student learning</span>
-            <span>Faculty publishing</span>
-            <span>Admin oversight</span>
-            <span>Role-specific dashboards</span>
+            <span>Live content pipeline</span>
+            <span>Role-based access</span>
+            <span>Approval workflows</span>
+            <span>Unified activity feed</span>
           </div>
           <div class="hero-actions">
-            <button class="primary-button" id="jumpToLoginBtn" type="button">Login to Continue</button>
-            <button class="secondary-button" id="previewButton" type="button">Preview Experience</button>
+            <button class="primary-button" id="jumpToLoginBtn" type="button">Enter Portal</button>
+            <button class="secondary-button" id="previewButton" type="button">How it works</button>
           </div>
           <div class="hero-metrics">
-            <div><strong>8</strong><span>Semesters</span></div>
-            <div><strong>24</strong><span>Core subjects</span></div>
-            <div><strong>6</strong><span>Video lessons</span></div>
+            <div><strong id="metricContent">0</strong><span>Approved resources</span></div>
+            <div><strong id="metricFaculty">0</strong><span>Faculty publishers</span></div>
+            <div><strong id="metricStudents">0</strong><span>Active students</span></div>
           </div>
         </article>
 
@@ -59,9 +59,9 @@
           <div class="section-header compact">
             <div>
               <span class="eyebrow">Secure access</span>
-              <h2>Login</h2>
+              <h2>Sign in to your workspace</h2>
             </div>
-            <p>Use the demo credentials below to open the correct workspace.</p>
+            <p>Each role opens a purpose-built dashboard. Click a demo card to autofill.</p>
           </div>
 
           <form id="loginForm" class="login-form" novalidate>
@@ -78,244 +78,58 @@
           </form>
 
           <div class="credential-grid">
-            <article class="credential-card"><span>Student</span><strong>S2510125</strong><small>251025</small></article>
-            <article class="credential-card"><span>Faculty</span><strong>F1234</strong><small>1234</small></article>
-            <article class="credential-card"><span>Admin</span><strong>A7890</strong><small>7890</small></article>
+            <article class="credential-card" data-fill-login="S2510125|251025">
+              <span>Student</span><strong>S2510125</strong><small>251025</small>
+            </article>
+            <article class="credential-card" data-fill-login="F1234|1234">
+              <span>Faculty</span><strong>F1234</strong><small>1234</small>
+            </article>
+            <article class="credential-card" data-fill-login="A7890|7890">
+              <span>Admin</span><strong>A7890</strong><small>7890</small>
+            </article>
           </div>
         </article>
       </section>
 
       <section class="app-shell hidden" id="appShell">
-        <div class="app-frame glass-card">
-          <div class="app-topbar">
-            <div>
-              <span class="eyebrow" id="roleBadge">Dashboard</span>
-              <h2 id="roleTitle">Welcome back</h2>
-              <p id="roleSubtitle"></p>
-            </div>
-            <div class="app-topbar-actions">
-              <label class="search-shell premium-search" id="roleSearchShell">
-                <span>Search this dashboard</span>
-                <div class="search-box">
-                  <span class="search-icon" aria-hidden="true">⌕</span>
-                  <input id="roleSearch" type="search" placeholder="Search lessons, resources, profiles" autocomplete="off" />
-                  <button class="search-clear" id="roleSearchClear" type="button" aria-label="Clear search">×</button>
-                </div>
-                <small id="roleSearchMeta">Showing all content</small>
-              </label>
-              <button class="secondary-button" id="roleActionButton" type="button"></button>
-            </div>
-          </div>
+        <div class="app-frame">
+          <div class="app-layout">
+            <aside class="role-sidebar">
+              <div class="sidebar-profile">
+                <span class="eyebrow" id="roleBadge">Role</span>
+                <strong id="sidebarName">User</strong>
+                <small id="sidebarMeta">Workspace</small>
+              </div>
+              <nav class="role-nav" id="roleNav" aria-label="Dashboard navigation"></nav>
+              <div class="sidebar-stat" id="sidebarStat"></div>
+            </aside>
 
-          <nav class="role-nav" id="roleNav" aria-label="Dashboard navigation"></nav>
-          <div id="roleViewport" class="role-viewport">
-            <section class="role-panel hidden" id="studentDashboard" data-role-panel="student">
-              <section class="role-hero student-hero" id="studentOverview" data-searchable="student overview progress streak lessons">
-                <div class="role-hero-main">
-                  <span class="eyebrow">Student workspace</span>
-                  <h3>Study with a clearer rhythm.</h3>
-                  <p>Track progress, resume lessons, and move through semester content in a calmer layout built for focus.</p>
-                  <div class="resource-row">
-                    <button class="primary-button" type="button" data-open-video="ds">Continue watching</button>
-                    <button class="secondary-button" type="button" data-download-resource="Data Structures|Notes">Download notes</button>
-                  </div>
-                </div>
-                <div class="role-hero-side">
-                  <article class="dashboard-card compact-card" data-searchable="student semester progress 72 percent">
-                    <span class="eyebrow">Semester progress</span>
-                    <div class="dashboard-figure">72%</div>
-                  </article>
-                  <article class="dashboard-card compact-card" data-searchable="student streak 4 days">
-                    <span class="eyebrow">Study streak</span>
-                    <div class="dashboard-figure">4 days</div>
-                  </article>
-                </div>
-              </section>
-
-              <section class="split-grid" id="studentLearning">
-                <article class="content-card" data-searchable="student semester explorer semester 3 4 5 6">
-                  <span class="eyebrow">Learning path</span>
-                  <h3>Semester explorer</h3>
-                  <p>Move through the curriculum with a clean subject-first layout.</p>
-                  <div class="resource-list">
-                    <div class="resource-row"><span class="tag-pill">Semester 3</span><button class="secondary-button" type="button" data-semester-open="3">Open</button></div>
-                    <div class="resource-row"><span class="tag-pill">Semester 4</span><button class="secondary-button" type="button" data-semester-open="4">Open</button></div>
-                    <div class="resource-row"><span class="tag-pill">Semester 5</span><button class="secondary-button" type="button" data-semester-open="5">Open</button></div>
-                    <div class="resource-row"><span class="tag-pill">Semester 6</span><button class="secondary-button" type="button" data-semester-open="6">Open</button></div>
-                  </div>
-                </article>
-                <article class="content-card" data-searchable="student featured subjects data structures dbms computer networks artificial intelligence">
-                  <span class="eyebrow">Featured subjects</span>
-                  <h3>Subject library</h3>
-                  <p>Fast links to the core subjects students most often revisit.</p>
-                  <div class="resource-list">
-                    <div class="resource-row"><span class="tag-pill">Data Structures</span><button class="secondary-button" type="button" data-open-video-by-subject="Data Structures">Watch</button></div>
-                    <div class="resource-row"><span class="tag-pill">DBMS</span><button class="secondary-button" type="button" data-open-video-by-subject="DBMS">Watch</button></div>
-                    <div class="resource-row"><span class="tag-pill">Computer Networks</span><button class="secondary-button" type="button" data-open-video-by-subject="Computer Networks">Watch</button></div>
-                    <div class="resource-row"><span class="tag-pill">Artificial Intelligence</span><button class="secondary-button" type="button" data-open-video-by-subject="Artificial Intelligence">Watch</button></div>
-                  </div>
-                </article>
-              </section>
-
-              <section class="feature-grid" id="studentTools">
-                <article class="content-card" data-searchable="student video learning guided lessons">
-                  <span class="eyebrow">Video learning</span>
-                  <h3>Guided lessons</h3>
-                  <p>Open lesson cards for the role-specific player.</p>
-                  <div class="resource-row"><button class="primary-button" type="button" data-open-video="ds">Open lesson</button></div>
-                </article>
-                <article class="content-card" data-searchable="student revision kits notes assignments lab manuals previous year papers">
-                  <span class="eyebrow">Revision kits</span>
-                  <h3>Download resources</h3>
-                  <p>Notes, assignments, lab manuals, and previous year papers.</p>
-                  <div class="resource-row"><button class="secondary-button" type="button" data-download-resource="Data Structures|Notes">Notes</button><button class="secondary-button" type="button" data-download-resource="Data Structures|Assignments">Assignments</button></div>
-                </article>
-                <article class="content-card" data-searchable="student career focus roadmap web development">
-                  <span class="eyebrow">Career focus</span>
-                  <h3>Study roadmap</h3>
-                  <p>Plan the next skill path without leaving the dashboard.</p>
-                  <div class="resource-row"><button class="secondary-button" type="button" data-roadmap-view="Web Development">View roadmap</button></div>
-                </article>
-              </section>
-            </section>
-
-            <section class="role-panel hidden" id="facultyDashboard" data-role-panel="faculty">
-              <section class="role-hero faculty-hero" id="facultyOverview" data-searchable="faculty overview lectures published pending reviews student reach">
-                <div class="role-hero-main">
-                  <span class="eyebrow">Faculty studio</span>
-                  <h3>Publish like an editorial team.</h3>
-                  <p>Upload notes, release lectures, and review student activity from a layout designed to feel sharper and more professional.</p>
-                  <div class="resource-row">
-                    <button class="primary-button" type="button" data-add-note>Publish notes</button>
-                    <button class="secondary-button" type="button" data-add-video>Add lecture</button>
-                  </div>
-                </div>
-                <div class="role-hero-side faculty-metrics">
-                  <article class="dashboard-card compact-card" data-searchable="faculty lectures published 12">
-                    <span class="eyebrow">Lectures published</span>
-                    <div class="dashboard-figure">12</div>
-                  </article>
-                  <article class="dashboard-card compact-card" data-searchable="faculty pending reviews 5">
-                    <span class="eyebrow">Pending reviews</span>
-                    <div class="dashboard-figure">5</div>
-                  </article>
-                </div>
-              </section>
-
-              <section class="split-grid" id="facultyPublish">
-                <article class="content-card content-card-accent" data-searchable="faculty publish studio add notes lectures data structures dbms">
-                  <span class="eyebrow">Publish studio</span>
-                  <h3>Add notes and lectures</h3>
-                  <p>Faculty workflows stay simple and visible in the HTML shell.</p>
-                  <div class="resource-list">
-                    <div class="resource-row"><span class="tag-pill">Data Structures</span><button class="secondary-button" type="button" data-add-note>Publish notes</button></div>
-                    <div class="resource-row"><span class="tag-pill">DBMS</span><button class="secondary-button" type="button" data-add-video>Add lecture</button></div>
-                  </div>
-                </article>
-                <article class="content-card" data-searchable="faculty teaching tools notes ppts lab manuals">
-                  <span class="eyebrow">Teaching tools</span>
-                  <h3>Resource stack</h3>
-                  <p>Use the same polished view to review videos and resources.</p>
-                  <div class="resource-list">
-                    <div class="resource-row"><span class="tag-pill">Notes</span><button class="secondary-button" type="button" data-download-resource="DBMS|Notes">Download pack</button></div>
-                    <div class="resource-row"><span class="tag-pill">PPTs</span><button class="secondary-button" type="button" data-download-resource="DBMS|PPTs">Download pack</button></div>
-                    <div class="resource-row"><span class="tag-pill">Lab Manuals</span><button class="secondary-button" type="button" data-download-resource="DBMS|Lab Manuals">Download pack</button></div>
-                  </div>
-                </article>
-              </section>
-
-              <section class="feature-grid" id="facultyReview">
-                <article class="content-card" data-searchable="faculty lecture review dbms operating systems video">
-                  <span class="eyebrow">Faculty review</span>
-                  <h3>Lecture review</h3>
-                  <p>Review the lesson library from a teaching perspective.</p>
-                  <div class="resource-row"><button class="primary-button" type="button" data-open-video="dbms">Open lecture</button></div>
-                </article>
-                <article class="content-card" data-searchable="faculty student progress dr raj mehta profile">
-                  <span class="eyebrow">Student progress</span>
-                  <h3>Track engagement</h3>
-                  <p>See which topics are being watched most often.</p>
-                  <div class="resource-row"><button class="secondary-button" type="button" data-faculty-view="Dr. Raj Mehta">View profile</button></div>
-                </article>
-                <article class="content-card" data-searchable="faculty quick publish operating systems example">
-                  <span class="eyebrow">Quick publish</span>
-                  <h3>Clean workflow</h3>
-                  <p>Everything is in one place, but the dashboard remains restrained.</p>
-                  <div class="resource-row"><button class="secondary-button" type="button" data-open-video-by-subject="Operating Systems">Open example</button></div>
-                </article>
-              </section>
-            </section>
-
-            <section class="role-panel hidden" id="adminDashboard" data-role-panel="admin">
-              <section class="dashboard-grid" id="adminOverview" data-searchable="admin overview accounts content items approvals">
-                <article class="dashboard-card span-4" data-searchable="admin accounts users governance">
-                  <span class="eyebrow">Accounts</span>
-                  <div class="dashboard-figure">128</div>
-                  <p>Active accounts under platform governance.</p>
-                </article>
-                <article class="dashboard-card span-4" data-searchable="admin content items lectures resources">
-                  <span class="eyebrow">Content items</span>
-                  <div class="dashboard-figure">36</div>
-                  <p>Notes, lectures, and resources awaiting curation.</p>
-                </article>
-                <article class="dashboard-card span-4" data-searchable="admin approvals moderation pending items">
-                  <span class="eyebrow">Approvals</span>
-                  <div class="dashboard-figure">9</div>
-                  <p>Pending moderation items in the system.</p>
-                </article>
-              </section>
-
-              <section class="split-grid" id="adminGovernance" data-searchable="admin governance manage users content lock approve">
-                <article class="content-card" data-searchable="admin governance manage users content approve lock">
-                  <span class="eyebrow">Governance</span>
-                  <h3>Manage users and content</h3>
-                  <p>Administrative controls are clear but not visually heavy.</p>
-                  <div class="resource-row"><button class="secondary-button" type="button" data-admin-approve>Approve content</button><button class="secondary-button" type="button" data-admin-lock>Lock account</button></div>
-                </article>
-                <article class="content-card" data-searchable="admin platform health moderation completion analytics">
-                  <span class="eyebrow">Platform health</span>
-                  <h3>Analytics at a glance</h3>
-                  <p>Quick numbers with a premium presentation, not a cluttered table.</p>
-                  <div class="progress-bar"><span style="width: 81%"></span></div>
-                  <p>Moderation completion: 81%</p>
-                </article>
-              </section>
-
-              <section class="feature-grid" id="adminAnalytics" data-searchable="admin analytics oversight content control dashboard discipline">
-                <article class="content-card" data-searchable="admin user oversight faculty visibility role visibility">
-                  <span class="eyebrow">User oversight</span>
-                  <h3>Role visibility</h3>
-                  <p>Student, faculty, and admin access stays distinct.</p>
-                  <div class="resource-row"><button class="secondary-button" type="button" data-faculty-view="Prof. Meera Patel">Inspect faculty</button></div>
-                </article>
-                <article class="content-card" data-searchable="admin content control resource quality cloud computing notes preview pack">
-                  <span class="eyebrow">Content control</span>
-                  <h3>Resource quality</h3>
-                  <p>Approve or reject materials without leaving the page.</p>
-                  <div class="resource-row"><button class="secondary-button" type="button" data-download-resource="Cloud Computing|Notes">Preview pack</button></div>
-                </article>
-                <article class="content-card" data-searchable="admin dashboard discipline cyber security policy path">
-                  <span class="eyebrow">Oversight</span>
-                  <h3>Dashboard discipline</h3>
-                  <p>Cleaner admin layout, less noise, more signal.</p>
-                  <div class="resource-row"><button class="primary-button" type="button" data-roadmap-view="Cyber Security">View policy path</button></div>
-                </article>
-              </section>
-            </section>
-
-            <section class="content-card hidden" id="commonPanel" data-role-panel="common">
-              <div class="section-header compact">
+            <div class="app-main">
+              <div class="app-topbar">
                 <div>
-                  <span class="eyebrow">Shared content</span>
-                  <h3>Core platform areas</h3>
+                  <h2 class="panel-title" id="roleTitle">Dashboard</h2>
+                  <p id="roleSubtitle" class="muted"></p>
                 </div>
-                <p>These sections stay in HTML and can be shown per role if needed.</p>
+                <div class="app-topbar-actions">
+                  <label class="search-shell premium-search" id="roleSearchShell">
+                    <span>Search workspace</span>
+                    <div class="search-box">
+                      <span class="search-icon" aria-hidden="true">⌕</span>
+                      <input id="roleSearch" type="search" placeholder="Search lessons, users, approvals…" autocomplete="off" />
+                      <button class="search-clear" id="roleSearchClear" type="button" aria-label="Clear search">×</button>
+                    </div>
+                    <small id="roleSearchMeta">Showing all content</small>
+                  </label>
+                  <button class="primary-button" id="roleActionButton" type="button"></button>
+                </div>
               </div>
-              <div class="split-grid">
-                <article class="content-card"><h3>Videos</h3><p>Lesson cards are embedded directly in the document.</p></article>
-                <article class="content-card"><h3>Roadmaps</h3><p>Career paths remain visible without creating content in JavaScript.</p></article>
+
+              <div id="roleViewport" class="role-viewport">
+                <section class="role-panel hidden" id="studentDashboard" data-role-panel="student"></section>
+                <section class="role-panel hidden" id="facultyDashboard" data-role-panel="faculty"></section>
+                <section class="role-panel hidden" id="adminDashboard" data-role-panel="admin"></section>
               </div>
-            </section>
+            </div>
           </div>
         </div>
       </section>
@@ -336,6 +150,36 @@
       </div>
     </div>
 
+    <div class="modal-overlay hidden" id="publishModal" aria-hidden="true">
+      <div class="modal-card info-modal" role="dialog" aria-modal="true" aria-labelledby="publishModalTitle">
+        <button class="modal-close" id="closePublishModal" type="button" aria-label="Close publish form">×</button>
+        <div class="modal-content">
+          <span class="eyebrow">Faculty studio</span>
+          <h3 id="publishModalTitle">Publish content</h3>
+          <p class="muted">Submitted items enter the admin approval queue and appear for students once approved.</p>
+          <form id="publishForm" class="publish-form">
+            <input type="hidden" id="publishType" value="notes" />
+            <label class="field-shell">
+              <span>Title</span>
+              <input id="publishTitle" type="text" placeholder="e.g. Unit 3 — Normalization" required />
+            </label>
+            <label class="field-shell">
+              <span>Subject</span>
+              <select id="publishSubject" required></select>
+            </label>
+            <label class="field-shell">
+              <span>Description</span>
+              <textarea id="publishDescription" placeholder="Brief summary for students and reviewers"></textarea>
+            </label>
+            <div class="inline-actions">
+              <button class="primary-button" type="submit">Submit for approval</button>
+              <button class="secondary-button" id="cancelPublish" type="button">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-overlay hidden" id="videoModal" aria-hidden="true">
       <div class="modal-card video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
         <button class="modal-close" id="closeVideoModal" type="button" aria-label="Close video player">×</button>
@@ -344,8 +188,8 @@
             <video id="lessonVideo" controls playsinline preload="metadata"></video>
             <div class="video-toolbar">
               <button class="mini-button" id="playPauseButton" type="button">Pause</button>
-              <button class="mini-button" id="rewindButton" type="button">Previous Lesson</button>
-              <button class="mini-button" id="forwardButton" type="button">Next Lesson</button>
+              <button class="mini-button" id="rewindButton" type="button">Previous</button>
+              <button class="mini-button" id="forwardButton" type="button">Next</button>
               <label class="range-shell">
                 Volume
                 <input id="volumeSlider" type="range" min="0" max="1" step="0.05" value="1" />
@@ -372,16 +216,16 @@
               <ul id="videoOutcomes" class="clean-list"></ul>
             </div>
             <div class="video-nav">
-              <button class="secondary-button" id="prevVideoButton" type="button">Previous Lesson</button>
-              <button class="primary-button" id="nextVideoButton" type="button">Next Lesson</button>
+              <button class="secondary-button" id="prevVideoButton" type="button">Previous</button>
+              <button class="primary-button" id="nextVideoButton" type="button">Next</button>
             </div>
           </aside>
         </div>
         <div class="related-shell">
           <div class="section-header compact">
             <div>
-              <span class="eyebrow">Related videos</span>
-              <h3>Keep learning</h3>
+              <span class="eyebrow">Related lessons</span>
+              <h3>Continue learning</h3>
             </div>
           </div>
           <div id="relatedVideos" class="related-grid"></div>
