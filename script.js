@@ -1,39 +1,56 @@
-const STORAGE_KEY = "edvora-platform-v2";
+const STORAGE_KEY = "edvora-platform-v3";
 
 const credentials = {
-  S2510125: {
+  S251025: {
     password: "251025",
     role: "student",
-    name: "Aditya Sharma",
+    name: "Aditya Mall",
     title: "Student Learning Hub",
     subtitle: "Approved lessons, semester paths, and downloadable study packs.",
     actionLabel: "Resume Web Dev",
     sidebarMeta: "Semester 5 · Computer Science",
   },
+  S251283: {
+    password: "251283",
+    role: "student",
+    name: "Manthan Mishra",
+    title: "Student Learning Hub",
+    subtitle: "Approved lessons, semester paths, and downloadable study packs.",
+    actionLabel: "Resume Web Dev",
+    sidebarMeta: "Semester 3 · Computer Science",
+  },
   F1234: {
     password: "1234",
     role: "faculty",
-    name: "Dr. Raj Mehta",
+    name: "Dr. Navreet",
     title: "Faculty Publishing Studio",
     subtitle: "Create content, track approvals, and monitor student engagement.",
     actionLabel: "Publish content",
     sidebarMeta: "Database Systems · Senior Faculty",
   },
+  F1110: {
+    password: "1110",
+    role: "faculty",
+    name: "Dr. Ayushi",
+    title: "Faculty Publishing Studio",
+    subtitle: "Create content, track approvals, and monitor student engagement.",
+    actionLabel: "Publish content",
+    sidebarMeta: "Web Development · Faculty",
+  },
   A7890: {
     password: "7890",
     role: "admin",
-    name: "Priya Nair",
+    name: "Dr. Sukhpreet (H.O.D)",
     title: "Admin Command Center",
     subtitle: "Govern users, moderate submissions, and oversee platform health.",
     actionLabel: "Review queue",
-    sidebarMeta: "Platform Operations",
+    sidebarMeta: "Head of Department",
   },
 };
 
 const WEB_DEV_PLAYLIST_ID = "PLbtI3_MArDOkxh7XzixN2G4NAGIVqTFon";
 
 const webDevelopmentCourse = {
-  id: "web-development",
   title: "Full Stack Web Development",
   instructor: "Sheryians Coding School",
   description: "Stream the complete front-end to MERN stack journey — HTML, CSS, JavaScript, React, Node.js, and real-world projects — directly inside Edvora.",
@@ -89,15 +106,8 @@ const subjects = [
   "Cloud Computing",
 ];
 
+// Self-hosted / direct MP4 lessons only. YouTube playlist chapters use the embed player below.
 const videos = {
-  ds: {
-    title: "Arrays and Linked Lists",
-    subtitle: "Semester 3 · Data Structures",
-    description: "Linear structures, pointer logic, and complexity trade-offs.",
-    outcomes: ["Compare array vs linked list", "Analyze time complexity", "Pick the right structure"],
-    url: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-    subject: "Data Structures",
-  },
   dbms: {
     title: "SQL and Normalization",
     subtitle: "Semester 4 · DBMS",
@@ -113,14 +123,6 @@ const videos = {
     outcomes: ["Map network layers", "Trace packet flow", "Understand routing"],
     url: "https://www.w3schools.com/html/mov_bbb.mp4",
     subject: "Computer Networks",
-  },
-  ai: {
-    title: "AI Search Fundamentals",
-    subtitle: "Semester 5 · Artificial Intelligence",
-    description: "Search strategies, heuristics, and decision trees.",
-    outcomes: ["Apply search algorithms", "Use heuristics", "Connect AI to products"],
-    url: "https://www.w3schools.com/html/mov_bbb.mp4",
-    subject: "Artificial Intelligence",
   },
 };
 
@@ -147,7 +149,7 @@ const defaultStore = () => ({
       title: "Introduction to Normalization",
       subject: "DBMS",
       description: "Foundational lecture on 1NF through 3NF.",
-      author: "Dr. Raj Mehta",
+      author: "Dr. Navreet",
       authorId: "F1234",
       status: "approved",
       createdAt: Date.now() - 86400000 * 5,
@@ -159,7 +161,7 @@ const defaultStore = () => ({
       title: "Linked List Cheat Sheet",
       subject: "Data Structures",
       description: "One-page revision notes for linear structures.",
-      author: "Dr. Raj Mehta",
+      author: "Dr. Navreet",
       authorId: "F1234",
       status: "approved",
       createdAt: Date.now() - 86400000 * 3,
@@ -170,7 +172,7 @@ const defaultStore = () => ({
       title: "TCP/IP Deep Dive",
       subject: "Computer Networks",
       description: "Advanced routing and protocol analysis.",
-      author: "Dr. Raj Mehta",
+      author: "Dr. Navreet",
       authorId: "F1234",
       status: "pending",
       createdAt: Date.now() - 86400000,
@@ -178,18 +180,20 @@ const defaultStore = () => ({
     },
   ],
   users: [
-    { id: "S2510125", name: "Aditya Sharma", role: "student", status: "active", progress: 72 },
-    { id: "F1234", name: "Dr. Raj Mehta", role: "faculty", status: "active", progress: 0 },
-    { id: "A7890", name: "Priya Nair", role: "admin", status: "active", progress: 0 },
+    { id: "S251025", name: "Aditya Mall", role: "student", status: "active", progress: 72 },
+    { id: "S251283", name: "Manthan Mishra", role: "student", status: "active", progress: 38 },
+    { id: "F1234", name: "Dr. Navreet", role: "faculty", status: "active", progress: 0 },
+    { id: "F1110", name: "Dr. Ayushi", role: "faculty", status: "active", progress: 0 },
+    { id: "A7890", name: "Dr. Sukhpreet (H.O.D)", role: "admin", status: "active", progress: 0 },
     { id: "S2510999", name: "Neha Verma", role: "student", status: "active", progress: 58 },
     { id: "S2510888", name: "Rohan Patel", role: "student", status: "active", progress: 41 },
   ],
   activity: [
-    { id: "a1", message: "Dr. Raj Mehta published lecture: Introduction to Normalization", role: "faculty", at: Date.now() - 86400000 * 5 },
-    { id: "a2", message: "Admin approved: Introduction to Normalization", role: "admin", at: Date.now() - 86400000 * 4 },
-    { id: "a3", message: "Aditya Sharma completed DBMS lesson", role: "student", at: Date.now() - 86400000 * 2 },
+    { id: "a1", message: "Dr. Navreet published lecture: Introduction to Normalization", role: "faculty", at: Date.now() - 86400000 * 5 },
+    { id: "a2", message: "Dr. Sukhpreet (H.O.D) approved: Introduction to Normalization", role: "admin", at: Date.now() - 86400000 * 4 },
+    { id: "a3", message: "Aditya Mall completed DBMS lesson", role: "student", at: Date.now() - 86400000 * 2 },
   ],
-  completions: { S2510125: ["dbms"] },
+  completions: { S251025: ["dbms"] },
 });
 
 const state = {
@@ -257,15 +261,11 @@ const refs = {
   serverBanner: document.getElementById("serverBanner"),
   nativeVideoToolbar: document.getElementById("nativeVideoToolbar"),
   youtubeVideoToolbar: document.getElementById("youtubeVideoToolbar"),
-  ytPrevButton: document.getElementById("ytPrevButton"),
-  ytNextButton: document.getElementById("ytNextButton"),
   markChapterComplete: document.getElementById("markChapterComplete"),
   openPlaylistLink: document.getElementById("openPlaylistLink"),
   chapterShell: document.getElementById("chapterShell"),
   chapterList: document.getElementById("chapterList"),
   playPauseButton: document.getElementById("playPauseButton"),
-  rewindButton: document.getElementById("rewindButton"),
-  forwardButton: document.getElementById("forwardButton"),
   volumeSlider: document.getElementById("volumeSlider"),
   speedSelect: document.getElementById("speedSelect"),
   fullscreenButton: document.getElementById("fullscreenButton"),
@@ -422,8 +422,6 @@ function bindEvents() {
     if (button) openCourseChapter(button.dataset.openChapter);
   });
 
-  refs.ytPrevButton.addEventListener("click", () => stepCourseChapter(-1));
-  refs.ytNextButton.addEventListener("click", () => stepCourseChapter(1));
   refs.markChapterComplete.addEventListener("click", () => markCurrentChapterComplete());
 
   refs.closeInfoModal.addEventListener("click", closeInfoModal);
@@ -435,8 +433,6 @@ function bindEvents() {
   refs.closeVideoModal.addEventListener("click", closeVideoModal);
   refs.videoModal.addEventListener("click", (event) => { if (event.target === refs.videoModal) closeVideoModal(); });
   refs.playPauseButton.addEventListener("click", togglePlayback);
-  refs.rewindButton.addEventListener("click", () => stepVideo(-1));
-  refs.forwardButton.addEventListener("click", () => stepVideo(1));
   refs.prevVideoButton.addEventListener("click", () => stepVideo(-1));
   refs.nextVideoButton.addEventListener("click", () => stepVideo(1));
   refs.volumeSlider.addEventListener("input", () => { refs.lessonVideo.volume = Number(refs.volumeSlider.value); });
@@ -456,13 +452,15 @@ function bindEvents() {
 
 function handleViewportClick(event) {
   const button = event.target.closest(
-    "button[data-open-video], button[data-open-chapter], button[data-open-content], button[data-download-content], button[data-roadmap-view], button[data-approve], button[data-reject], button[data-toggle-lock], button[data-open-publish], button[data-view-student], button[data-target-section], button[data-open-course]"
+    "button[data-open-video], button[data-open-chapter], button[data-open-content], button[data-download-content], button[data-roadmap-view], button[data-approve], button[data-reject], button[data-toggle-lock], button[data-open-publish], button[data-view-student], button[data-target-section], button[data-start-course]"
   );
   if (!button) return;
 
   if (button.dataset.targetSection) navigateToSection(button.dataset.targetSection);
-  else if (button.dataset.openCourse) openWebDevCourse(button.dataset.openCourse);
-  else if (button.dataset.openChapter) openCourseChapter(button.dataset.openChapter);
+  else if (button.dataset.startCourse) {
+    const chapter = getNextWebDevChapter() || webDevelopmentCourse.chapters[0];
+    openCourseChapter(chapter.id);
+  } else if (button.dataset.openChapter) openCourseChapter(button.dataset.openChapter);
   else if (button.dataset.openVideo) openVideo(button.dataset.openVideo);
   else if (button.dataset.openContent) openContentItem(button.dataset.openContent);
   else if (button.dataset.downloadContent) downloadContentItem(button.dataset.downloadContent);
@@ -631,7 +629,6 @@ function renderStudentDashboard() {
   const lectures = getApprovedLectures();
   const notes = approved.filter((item) => item.type === "notes");
   const progress = state.store.users.find((u) => u.id === state.username)?.progress || 0;
-  const completed = state.store.completions[state.username]?.length || 0;
   const webDev = getWebDevProgress();
   const nextChapter = getNextWebDevChapter();
 
@@ -766,7 +763,7 @@ function renderWebDevCourseSection() {
           <div class="progress-bar"><span style="width:${webDev.percent}%"></span></div>
         </div>
         <div class="inline-actions" style="margin-top:1rem">
-          <button class="primary-button" type="button" data-open-course="start">Start streaming</button>
+          <button class="primary-button" type="button" data-start-course>Start streaming</button>
           <button class="secondary-button" type="button" data-open-chapter="wd-1">Chapter 1 · HTML</button>
         </div>
       </div>
@@ -1031,7 +1028,7 @@ function handlePublishSubmit(event) {
   const description = refs.publishDescription.value.trim() || "No description provided.";
   if (!title) return;
 
-  const videoMap = { "Data Structures": "ds", DBMS: "dbms", "Computer Networks": "cn", "Artificial Intelligence": "ai" };
+  const videoMap = { DBMS: "dbms", "Computer Networks": "cn" };
   const item = {
     id: `c${Date.now()}`,
     type,
@@ -1122,11 +1119,6 @@ function viewStudentProfile(userId) {
     body: `Student ID: ${user.id}\nProgress: ${user.progress}%\nWeb Dev chapters: ${webDev.done}/${webDev.total}\nTotal completions: ${lessons}\nStatus: ${user.status}`,
     points: ["Web Dev streaming", "Engagement tracked", "Faculty view"],
   });
-}
-
-function openWebDevCourse(mode) {
-  const chapter = mode === "start" ? (getNextWebDevChapter() || webDevelopmentCourse.chapters[0]) : webDevelopmentCourse.chapters[0];
-  openCourseChapter(chapter.id);
 }
 
 function openCourseChapter(chapterId) {
@@ -1297,10 +1289,6 @@ function markCurrentChapterComplete() {
 }
 
 function handleLessonComplete() {
-  if (state.currentPlayerMode === "youtube") {
-    markCurrentChapterComplete();
-    return;
-  }
   if (!state.username || state.role !== "student") {
     showToast("Lesson completed.");
     return;
