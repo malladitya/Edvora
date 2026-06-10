@@ -1,4 +1,4 @@
-const STORAGE_KEY = "edvora-platform-v3";
+const STORAGE_KEY = "exiora-platform-v3";
 
 const credentials = {
   S251025: {
@@ -53,7 +53,7 @@ const WEB_DEV_PLAYLIST_ID = "PLbtI3_MArDOkxh7XzixN2G4NAGIVqTFon";
 const webDevelopmentCourse = {
   title: "Full Stack Web Development",
   instructor: "Sheryians Coding School",
-  description: "Stream the complete front-end to MERN stack journey — HTML, CSS, JavaScript, React, Node.js, and real-world projects — directly inside Edvora.",
+  description: "Stream the complete front-end to MERN stack journey — HTML, CSS, JavaScript, React, Node.js, and real-world projects — directly inside exiora.",
   playlistUrl: `https://www.youtube.com/playlist?list=${WEB_DEV_PLAYLIST_ID}`,
   chapters: [
     { id: "wd-1", chapter: 1, youtubeId: "4dprtEzunIk", title: "HTML Crash Course", topic: "Foundations", duration: "25:01", outcomes: ["Write semantic HTML", "Structure web pages", "Start front-end basics"] },
@@ -355,7 +355,7 @@ function renderYoutubeFallback(youtubeId, message) {
       <div class="inline-actions" style="justify-content:center">
         <button class="primary-button" type="button" data-fallback-watch="${youtubeId}">Watch on YouTube</button>
       </div>
-      ${isFileProtocol() ? `<small>Run <code>npx serve .</code> and open <code>http://localhost:3000</code> to stream inside Edvora.</small>` : ""}
+      ${isFileProtocol() ? `<small>Run <code>npx serve .</code> and open <code>http://localhost:3000</code> to stream inside exiora.</small>` : ""}
     </div>`;
   refs.youtubePlayerMount.querySelector("[data-fallback-watch]")?.addEventListener("click", () => {
     window.open(watchUrl, "_blank", "noopener,noreferrer");
@@ -559,7 +559,7 @@ function setLoggedOutState() {
   refs.logoutButton.classList.add("hidden");
   refs.roleNav.innerHTML = "";
   refs.roleBadge.textContent = "ACCESS";
-  refs.roleTitle.textContent = "Welcome to Edvora";
+  refs.roleTitle.textContent = "Welcome to exiora";
   refs.roleSubtitle.textContent = "Sign in to open your role-specific workspace.";
   refs.sidebarName.textContent = "Guest";
   refs.sidebarMeta.textContent = "Not signed in";
@@ -1096,7 +1096,7 @@ function downloadContentItem(contentId) {
   const item = state.store.content.find((c) => c.id === contentId);
   if (!item) return;
   const blob = new Blob([
-    `Edvora Resource Pack\n\nTitle: ${item.title}\nSubject: ${item.subject}\nAuthor: ${item.author}\nStatus: ${item.status}\n\n${item.description}\n`
+    `exiora Resource Pack\n\nTitle: ${item.title}\nSubject: ${item.subject}\nAuthor: ${item.author}\nStatus: ${item.status}\n\n${item.description}\n`
   ], { type: "text/plain;charset=utf-8" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
@@ -1130,7 +1130,7 @@ function openCourseChapter(chapterId) {
 
   refs.videoKicker.textContent = `Chapter ${chapter.chapter} · ${chapter.topic} · Web Development`;
   refs.videoModalTitle.textContent = chapter.title;
-  refs.videoDescription.textContent = `${webDevelopmentCourse.title} — ${chapter.duration}. Streamed from the official Sheryians Coding School playlist on Edvora.`;
+  refs.videoDescription.textContent = `${webDevelopmentCourse.title} — ${chapter.duration}. Streamed from the official Sheryians Coding School playlist on exiora.`;
   refs.videoOutcomes.innerHTML = chapter.outcomes.map((outcome) => `<li>${escapeHtml(outcome)}</li>`).join("");
 
   showYoutubePlayer(chapter.youtubeId);
@@ -1372,7 +1372,7 @@ function closeInfoModal() {
 
 function showHowItWorks() {
   openInfoModal({
-    kicker: "How Edvora connects",
+    kicker: "How exiora connects",
     title: "Three roles, one pipeline",
     body: "Faculty publish content → Admin approves or rejects → Students access approved lessons and notes. All actions sync to the shared activity feed.",
     points: ["Faculty studio", "Admin queue", "Student hub", "Live sync"],
@@ -1413,7 +1413,7 @@ function applySearchFilter() {
 function toggleTheme() {
   const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
   applyTheme(nextTheme);
-  localStorage.setItem("edvora-theme", nextTheme);
+  localStorage.setItem("exiora-theme", nextTheme);
 }
 
 function applyTheme(theme) {
@@ -1423,7 +1423,7 @@ function applyTheme(theme) {
 }
 
 function loadTheme() {
-  return localStorage.getItem("edvora-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  return localStorage.getItem("exiora-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 }
 
 function showToast(message) {
